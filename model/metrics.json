@@ -1,0 +1,19 @@
+{
+  "dataset": "DEMONSTRATION data generated from Homework 1 rules + random noise",
+  "rows": 2000,
+  "train_rows": 1600,
+  "test_rows": 400,
+  "features": [
+    "occasion",
+    "mainColor",
+    "mainPiece",
+    "season",
+    "style",
+    "budget"
+  ],
+  "target": "match_score",
+  "model": "RandomForestRegressor (150 trees) + OneHotEncoder",
+  "test_MAE": 3.59,
+  "test_R2": 0.625,
+  "baseline_MAE_predict_mean": 5.8
+}

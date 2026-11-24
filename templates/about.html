@@ -1,0 +1,123 @@
+{% extends "base.html" %}
+{% set active = 'about' %}
+{% block title %}About the Project{% endblock %}
+{% block content %}
+    <section class="hero hero-small">
+      <div class="container">
+        <p class="eyebrow">About the project</p>
+        <h1>Why Outfit Matchmaker?</h1>
+        <p class="tagline">From a single piece of clothing to a complete, matching look.</p>
+      </div>
+    </section>
+
+    <div class="container about-grid">
+      <article class="card">
+        <h2>Problem Statement</h2>
+        <p><strong>"What should I wear?"</strong> is the question almost every girl asks herself before going out. The wardrobe is full,
+           yet nothing seems to match: which shoes go with this burgundy dress? Which bag suits a navy outfit for a presentation?
+           Is this colour right for a wedding?</p>
+        <p>Choosing an outfit often takes a long time: trying on piece after piece, asking sisters and friends for their opinion,
+           and still feeling unsure. This daily stress makes girls late, repeat the same safe looks again and again, or buy new
+           pieces they don't really need.</p>
+        <p>Existing fashion apps are mostly online shops. They try to sell new items instead of helping a girl make the most of
+           what she already owns, and they rarely consider the occasion, local dress codes such as the abaya, and her budget together.</p>
+        <p class="highlight-note">💗 <strong>From girls, to girls:</strong> we are six female students who face this problem every
+           day ourselves. Outfit Matchmaker is the friend we wished we had: it understands the occasion, respects our style and
+           our culture, and helps us decide with confidence in seconds instead of minutes.</p>
+      </article>
+
+      <article class="card">
+        <h2>Target Users</h2>
+        <p>Our main users are <strong>girls and young women</strong> who want to look good without wasting time:</p>
+        <ul class="list">
+          <li>University students choosing outfits for lectures, presentations and graduation.</li>
+          <li>Working women who need quick, elegant and appropriate looks for the office.</li>
+          <li>Girls getting ready for weddings, Eid visits, family gatherings and outings with friends.</li>
+          <li>Anyone who wants to style the abaya or a single favourite piece in new ways.</li>
+          <li>Women's fashion stores that want to offer "complete the look" suggestions.</li>
+        </ul>
+      </article>
+
+      <article class="card">
+        <h2>Project Objective</h2>
+        <p>Save girls time and stress before every occasion. We aim to build a web application that receives details about an occasion and a main clothing piece, and recommends a
+           coordinated outfit (bottom piece, shoes, bag and accent colour) with a match score. The long-term objective is a
+           data-driven recommender trained on rated outfit combinations.</p>
+      </article>
+
+      <article class="card">
+        <h2>Inputs Used by the Prototype</h2>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th scope="col">Input</th><th scope="col">Control type</th><th scope="col">Purpose</th></tr></thead>
+            <tbody>
+              <tr><td>Look name</td><td>Text</td><td>Identifies the saved record</td></tr>
+              <tr><td>Occasion</td><td>Select</td><td>Sets the dress code</td></tr>
+              <tr><td>Main piece colour</td><td>Select</td><td>Drives colour harmony</td></tr>
+              <tr><td>Main piece type</td><td>Select</td><td>Decides which pieces are missing</td></tr>
+              <tr><td>Budget (SAR)</td><td>Number</td><td>Chooses the price tier</td></tr>
+              <tr><td>Season</td><td>Select</td><td>Chooses suitable fabrics</td></tr>
+              <tr><td>Preferred style</td><td>Radio buttons</td><td>Adjusts accents and contrast</td></tr>
+              <tr><td>Also suggest</td><td>Checkboxes</td><td>Shoes, bag and/or accessory</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </article>
+
+      <article class="card">
+        <h2>Expected Output</h2>
+        <p>A <strong>Result</strong> card showing:</p>
+        <ul class="list">
+          <li>An illustrated preview of the full outfit that redraws live when the style changes (classic adds a belt, modern a geometric panel, bold a striped piece, minimal stays plain).</li>
+          <li>A colour palette (main, partner and accent colours).</li>
+          <li>The suggested bottom or layering piece, shoes, bag and optional accessory.</li>
+          <li>A match score (0–100%) predicted by a trained machine learning model, with a short explanation.</li>
+          <li>An estimated price tier based on the budget.</li>
+        </ul>
+        <p>Each valid look is saved in a SQLite database and listed on the <a href="{{ url_for('records') }}">Saved Looks</a> page.</p>
+      </article>
+
+      <article class="card">
+        <h2>Homework 2: What Changed</h2>
+        <ul class="list">
+          <li><strong>Flask:</strong> the form is submitted with POST to a Flask route, checked on the server, and the pages are rendered with Jinja templates.</li>
+          <li><strong>Persistent database:</strong> looks are stored in SQLite with Flask-SQLAlchemy and stay saved after the server restarts.</li>
+          <li><strong>Real ML model:</strong> a scikit-learn model predicts the match score, replacing the Homework 1 simulated score. It is also available as a JSON API (POST /predict).</li>
+        </ul>
+      </article>
+
+      <article class="card span-2">
+        <h2>Group Members</h2>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th scope="col">#</th><th scope="col">Name</th><th scope="col">University ID</th></tr></thead>
+            <tbody>
+              <tr><td>1</td><td>Remas Mohammed Al-Mohammadi</td><td>4453835</td></tr>
+              <tr><td>2</td><td>Huda Emad Al-Turki</td><td>4453712</td></tr>
+              <tr><td>3</td><td>Reema Bakr Al-Ahmadi</td><td>4454301</td></tr>
+              <tr><td>4</td><td>Jana Alaa Abdulrazzaq</td><td>4454786</td></tr>
+              <tr><td>5</td><td>Fatimah Abdullah Al-Nakhli</td><td>4455041</td></tr>
+              <tr><td>6</td><td>Razan Hashem Al-Juhani</td><td>4453418</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </article>
+
+      <article class="card span-2">
+        <h2>Team Contribution (Homework 1)</h2>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th scope="col">Member</th><th scope="col">Main tasks</th><th scope="col">Share</th></tr></thead>
+            <tbody>
+              <tr><td>Remas Al-Mohammadi</td><td>Project idea, Home page structure and form inputs</td><td>17%</td></tr>
+              <tr><td>Huda Al-Turki</td><td>Simulated matching rules and form validation in script.js</td><td>17%</td></tr>
+              <tr><td>Reema Al-Ahmadi</td><td>Illustrated outfit preview (SVG drawing) and live style updates</td><td>17%</td></tr>
+              <tr><td>Jana Abdulrazzaq</td><td>style.css design, hover effects and responsive media queries</td><td>17%</td></tr>
+              <tr><td>Fatimah Al-Nakhli</td><td>About page content, problem statement and target users research</td><td>16%</td></tr>
+              <tr><td>Razan Al-Juhani</td><td>Database-ready section, sample records, W3C validation, testing and README</td><td>16%</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </article>
+    </div>
+{% endblock %}

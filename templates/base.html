@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Outfit Matchmaker: suggests matching clothes, bags and shoes by occasion, colour and style.">
+  <title>Outfit Matchmaker | {% block title %}{% endblock %}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="logo" href="{{ url_for('home') }}">Outfit <span>Matchmaker</span></a>
+      <nav aria-label="Main navigation">
+        <ul class="nav-list">
+          <li><a href="{{ url_for('home') }}"{% if active == 'home' %} class="active" aria-current="page"{% endif %}>Home</a></li>
+          <li><a href="{{ url_for('records') }}"{% if active == 'records' %} class="active" aria-current="page"{% endif %}>Saved Looks</a></li>
+          <li><a href="{{ url_for('about') }}"{% if active == 'about' %} class="active" aria-current="page"{% endif %}>About the Project</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+{% block content %}{% endblock %}
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p class="footer-title"><strong>Outfit Matchmaker</strong> · Group Homework 2 · DS432 Web Development for Data Science</p>
+      <p class="footer-label">Developed by (Group Members)</p>
+      <ul class="footer-members">
+        <li>Remas Mohammed Al-Mohammadi <span>4453835</span></li>
+        <li>Huda Emad Al-Turki <span>4453712</span></li>
+        <li>Reema Bakr Al-Ahmadi <span>4454301</span></li>
+        <li>Jana Alaa Abdulrazzaq <span>4454786</span></li>
+        <li>Fatimah Abdullah Al-Nakhli <span>4455041</span></li>
+        <li>Razan Hashem Al-Juhani <span>4453418</span></li>
+      </ul>
+      <p class="footer-small">Taibah University · College of Computer Science and Engineering · Department of Artificial Intelligence and Data Science · First Semester 2026</p>
+    </div>
+  </footer>
+
+{% block scripts %}{% endblock %}
+</body>
+</html>

@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 340" width="420" height="340" role="img" aria-labelledby="t">
+  <title id="t">Coordinated outfit: top, skirt, heels, handbag and colour palette</title>
+  <rect width="420" height="340" rx="18" fill="#fbf4f1"/>
+  <circle cx="330" cy="70" r="70" fill="#f1dfe5"/>
+  <circle cx="70" cy="290" r="60" fill="#f3e8d4"/>
+  <!-- hanger -->
+  <path d="M150 38 q0-14 14-14 q14 0 14 14 q0 10-14 16 l-62 30 h124 l-62-30" fill="none" stroke="#6d6270" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- blouse -->
+  <path d="M110 86 l40-10 q14 18 28 0 l40 10 l26 46 l-28 14 l-12-20 v70 h-80 v-70 l-12 20 l-28-14 z" fill="#7a1f35"/>
+  <path d="M150 76 q14 22 28 0" fill="none" stroke="#c9a24a" stroke-width="3"/>
+  <!-- skirt -->
+  <path d="M124 220 h80 l30 92 h-140 z" fill="#d9c3a5"/>
+  <path d="M124 220 h80 v10 h-80 z" fill="#b89f80"/>
+  <path d="M150 232 l-14 78 M178 232 l14 78" stroke="#c8b08f" stroke-width="2"/>
+  <!-- handbag -->
+  <path d="M286 150 q0-30 26-30 q26 0 26 30" fill="none" stroke="#a8842f" stroke-width="5"/>
+  <rect x="268" y="150" width="88" height="66" rx="10" fill="#c9a24a"/>
+  <rect x="268" y="150" width="88" height="20" rx="8" fill="#b38d36"/>
+  <circle cx="312" cy="172" r="5" fill="#fbf4f1"/>
+  <!-- heels -->
+  <path d="M262 286 q22-24 48-10 l14 16 h-22 l-8 26 h-6 l4-24 q-14-8-30-8 z" fill="#7a1f35"/>
+  <path d="M318 286 q22-24 48-10 l14 16 h-22 l-8 26 h-6 l4-24 q-14-8-30-8 z" fill="#5e1628"/>
+  <!-- palette -->
+  <g transform="translate(272 40)">
+    <circle cx="0" cy="0" r="13" fill="#7a1f35" stroke="#fff" stroke-width="3"/>
+    <circle cx="32" cy="0" r="13" fill="#d9c3a5" stroke="#fff" stroke-width="3"/>
+    <circle cx="64" cy="0" r="13" fill="#c9a24a" stroke="#fff" stroke-width="3"/>
+  </g>
+  <path d="M40 60 l6 12 l12 6 l-12 6 l-6 12 l-6-12 l-12-6 l12-6 z" fill="#c9a24a"/>
+  <path d="M380 220 l4 8 l8 4 l-8 4 l-4 8 l-4-8 l-8-4 l8-4 z" fill="#7a1f35"/>
+</svg>

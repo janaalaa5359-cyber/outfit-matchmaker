@@ -1,0 +1,194 @@
+{% extends "base.html" %}
+{% set active = 'home' %}
+{% block title %}Home{% endblock %}
+{% block content %}
+    <!-- Hero / introduction -->
+    <section class="hero">
+      <div class="container hero-inner">
+        <div class="hero-text">
+          <p class="eyebrow">DS432 · Homework 2 · Flask + SQLite + ML</p>
+          <h1>Outfit Matchmaker</h1>
+          <p class="tagline">Coordinate clothes, bags and shoes by occasion, colour and style.</p>
+          <p>Tell us where you are going, the colour of the piece you want to wear and the style you like.
+             The app suggests a full matching look: bottom piece, shoes, bag and an accent colour.</p>
+          <a class="btn btn-outline" href="#matchmaker">Start matching</a>
+        </div>
+        <figure class="hero-figure">
+          <img src="{{ url_for('static', filename='images/project-image.svg') }}" width="420" height="340"
+               alt="Illustration of a coordinated outfit: a top, a skirt, heeled shoes and a handbag laid out with a colour palette">
+        </figure>
+      </div>
+    </section>
+
+    <div class="container">
+      <!-- Project introduction -->
+      <section class="card intro" aria-labelledby="intro-title">
+        <h2 id="intro-title">What does this app do?</h2>
+        <p>"What should I wear?" is the daily question every girl knows, and choosing an outfit can take a long time,
+           especially before a wedding, a presentation or a family gathering. Made <strong>by girls, for girls</strong>, Outfit Matchmaker collects a few details about the occasion and the
+           main piece of clothing, then applies colour-harmony and dress-code rules to recommend a complete outfit
+           with a match score.</p>
+        <p>The form is now sent to a <strong>Flask</strong> server, checked on the server, scored by a trained
+           <strong>machine learning model</strong> and saved in a <strong>SQLite database</strong>.</p>
+      </section>
+
+      <!-- Matchmaker form + result -->
+      <section id="matchmaker" class="matchmaker" aria-labelledby="form-title">
+        <div class="card form-card">
+          <h2 id="form-title">Build your look</h2>
+          <form id="outfit-form" method="post" action="{{ url_for('home') }}#matchmaker" novalidate>
+            <div class="form-grid">
+              <div class="field">
+                <label for="lookName">Look name <span class="req">*</span></label>
+                <input type="text" id="lookName" name="lookName" placeholder="e.g. Sara's graduation look" maxlength="40">
+              </div>
+
+              <div class="field">
+                <label for="occasion">Occasion <span class="req">*</span></label>
+                <select id="occasion" name="occasion">
+                  <option value="">-- Select occasion --</option>
+                  <option value="wedding">Wedding / Evening event</option>
+                  <option value="work">Work / Formal meeting</option>
+                  <option value="university">University day</option>
+                  <option value="family">Family gathering</option>
+                  <option value="outing">Casual outing</option>
+                  <option value="sport">Sport / Gym</option>
+                </select>
+              </div>
+
+              <div class="field">
+                <label for="mainColor">Main piece colour <span class="req">*</span></label>
+                <select id="mainColor" name="mainColor">
+                  <option value="">-- Select colour --</option>
+                  <option value="black">Black</option>
+                  <option value="white">White</option>
+                  <option value="beige">Beige</option>
+                  <option value="navy">Navy</option>
+                  <option value="grey">Grey</option>
+                  <option value="red">Red</option>
+                  <option value="pink">Pink</option>
+                  <option value="green">Green</option>
+                  <option value="blue">Light blue</option>
+                  <option value="mustard">Mustard</option>
+                  <option value="burgundy">Burgundy</option>
+                </select>
+              </div>
+
+              <div class="field">
+                <label for="mainPiece">Main piece type <span class="req">*</span></label>
+                <select id="mainPiece" name="mainPiece">
+                  <option value="">-- Select piece --</option>
+                  <option value="top">Top / Blouse</option>
+                  <option value="dress">Dress</option>
+                  <option value="abaya">Abaya</option>
+                  <option value="trousers">Trousers</option>
+                  <option value="skirt">Skirt</option>
+                </select>
+              </div>
+
+              <div class="field">
+                <label for="budget">Budget for missing pieces (SAR) <span class="req">*</span></label>
+                <input type="number" id="budget" name="budget" min="50" max="10000" step="10" placeholder="50 – 10000">
+              </div>
+
+              <div class="field">
+                <label for="season">Season</label>
+                <select id="season" name="season">
+                  <option value="summer">Summer</option>
+                  <option value="winter">Winter</option>
+                  <option value="spring">Spring / Autumn</option>
+                </select>
+              </div>
+            </div>
+
+            <fieldset class="field">
+              <legend>Preferred style <span class="req">*</span></legend>
+              <div class="choice-row">
+                <label class="choice"><input type="radio" name="style" value="classic"> Classic</label>
+                <label class="choice"><input type="radio" name="style" value="modern"> Modern</label>
+                <label class="choice"><input type="radio" name="style" value="minimal"> Minimal</label>
+                <label class="choice"><input type="radio" name="style" value="bold"> Bold</label>
+              </div>
+            </fieldset>
+
+            <fieldset class="field">
+              <legend>Also suggest</legend>
+              <div class="choice-row">
+                <label class="choice"><input type="checkbox" id="wantShoes" name="extras" value="shoes" checked> Shoes</label>
+                <label class="choice"><input type="checkbox" id="wantBag" name="extras" value="bag" checked> Bag</label>
+                <label class="choice"><input type="checkbox" id="wantAccessory" name="extras" value="accessory"> Accessory</label>
+              </div>
+            </fieldset>
+
+            <p id="form-error" class="error-msg" role="alert"{% if not errors %} hidden{% endif %}>
+              {%- if errors|length == 1 %}⚠ {{ errors[0] }}
+              {%- elif errors %}⚠ Please fix the following:{% for e in errors %}<br>• {{ e }}{% endfor %}
+              {%- endif %}</p>
+            {% if saved %}<p class="save-msg" id="save-msg">✓ Look {{ saved.id }} was saved to the database.
+              <a href="{{ url_for('records') }}">View all saved looks</a></p>{% endif %}
+
+            <div class="btn-row">
+              <button type="submit" class="btn btn-primary" id="matchBtn">Match &amp; save my look</button>
+              <button type="reset" class="btn btn-ghost" id="resetBtn">Clear</button>
+            </div>
+          </form>
+        </div>
+
+        <aside class="card result-card" aria-labelledby="result-title" aria-live="polite">
+          <h2 id="result-title">Your Result</h2>
+          <div id="result">
+            <p class="placeholder">Fill in the form and press <strong>Match &amp; save my look</strong> to see your suggested look here.</p>
+          </div>
+          <p class="disclaimer">The match score is predicted by a scikit-learn model on the Flask server. The suggested items come from colour-harmony rules.</p>
+        </aside>
+      </section>
+
+      <!-- How it works -->
+      <section class="card" aria-labelledby="how-title">
+        <h2 id="how-title">How It Works</h2>
+        <ol class="steps">
+          <li><h3>Occasion sets the dress code</h3>
+              <p>Weddings call for heels and a clutch, work for structured pieces, sport for trainers and a backpack.</p></li>
+          <li><h3>Colour harmony picks the partners</h3>
+              <p>Each main colour has neutral and complementary partners. Neutrals (black, white, beige, navy, grey) pair with almost anything.</p></li>
+          <li><h3>Style adjusts the accents</h3>
+              <p>Minimal keeps one neutral tone, bold adds a contrasting accent, classic leans on gold and leather.</p></li>
+          <li><h3>Budget and season refine the result</h3>
+              <p>The budget decides the price tier of missing pieces; the season chooses fabrics such as linen or wool.</p></li>
+        </ol>
+
+        <h3 class="table-title">Colour pairing guide</h3>
+        <div class="table-wrap">
+          <table>
+            <caption class="sr-only">Main colours and their recommended matching colours</caption>
+            <thead>
+              <tr><th scope="col">Main colour</th><th scope="col">Safe partner</th><th scope="col">Accent partner</th><th scope="col">Best for</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Navy</td><td>White</td><td>Mustard</td><td>Work, university</td></tr>
+              <tr><td>Burgundy</td><td>Beige</td><td>Gold</td><td>Weddings, evening events</td></tr>
+              <tr><td>Green</td><td>Beige</td><td>Pink</td><td>Family gatherings</td></tr>
+              <tr><td>Light blue</td><td>White</td><td>Navy</td><td>Casual outings</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Saved looks: read from the SQLite database -->
+      <section class="card" aria-labelledby="saved-title">
+        <h2 id="saved-title">Recently Saved Looks</h2>
+        <p class="db-note"><strong>Stored in the database:</strong> every valid look is saved in SQLite through
+           Flask-SQLAlchemy. This table shows the 5 newest records.
+           <a href="{{ url_for('records') }}">See all saved looks</a>.</p>
+        {% include "_looks_table.html" %}
+      </section>
+    </div>
+{% endblock %}
+{% block scripts %}
+  <script>
+    // Values sent by Flask: refill the form after an error, or show the saved look.
+    window.FORM_VALUES = {{ values|tojson }};
+    window.SAVED_LOOK = {{ saved|tojson }};
+  </script>
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
+{% endblock %}

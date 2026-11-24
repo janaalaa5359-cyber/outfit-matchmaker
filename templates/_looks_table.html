@@ -1,0 +1,38 @@
+{# Table of saved looks. Expects a variable called "looks" or "recent". #}
+{% set rows = looks if looks is defined else recent %}
+{% if rows %}
+        <div class="table-wrap">
+          <table id="saved-table">
+            <thead>
+              <tr>
+                <th scope="col">Look ID</th>
+                <th scope="col">Look name</th>
+                <th scope="col">Occasion</th>
+                <th scope="col">Main piece</th>
+                <th scope="col">Style</th>
+                <th scope="col">Budget (SAR)</th>
+                <th scope="col">Suggested pieces</th>
+                <th scope="col">Match score</th>
+                <th scope="col">Date created</th>
+              </tr>
+            </thead>
+            <tbody id="saved-body">
+            {% for look in rows %}
+              <tr{% if saved and saved.id == look.code %} class="new-row"{% endif %}>
+                <td>{{ look.code }}</td>
+                <td>{{ look.look_name }}</td>
+                <td>{{ look.occasion_text }}</td>
+                <td>{{ look.main_text }}</td>
+                <td>{{ look.style|capitalize }}</td>
+                <td>{{ look.budget }}</td>
+                <td>{{ [look.suggested_complement, look.suggested_shoes, look.suggested_bag]|select|join(", ") }}</td>
+                <td>{{ look.match_score }}%</td>
+                <td>{{ look.created_at.strftime("%Y-%m-%d %H:%M") }}</td>
+              </tr>
+            {% endfor %}
+            </tbody>
+          </table>
+        </div>
+{% else %}
+        <p class="placeholder">No looks saved yet. Fill in the form on the <a href="{{ url_for('home') }}#matchmaker">Home page</a> to save your first look.</p>
+{% endif %}

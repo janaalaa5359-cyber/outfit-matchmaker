@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% set active = 'records' %}
+{% block title %}Saved Looks{% endblock %}
+{% block content %}
+    <section class="hero hero-small">
+      <div class="container">
+        <p class="eyebrow">Database records</p>
+        <h1>Saved Looks</h1>
+        <p class="tagline">Every look saved from the form, read from the SQLite database.</p>
+      </div>
+    </section>
+
+    <div class="container">
+      <section class="card" aria-labelledby="records-title">
+        <h2 id="records-title">All saved looks ({{ total }})</h2>
+        <p class="db-note"><strong>Live database query:</strong> these rows come from
+           <code>Look.query.order_by(Look.created_at.desc()).all()</code>, not from fixed HTML.
+           They stay here after Flask is stopped and started again.</p>
+        {% include "_looks_table.html" %}
+        <p><a class="btn btn-primary" href="{{ url_for('home') }}#matchmaker">Create a new look</a></p>
+      </section>
+    </div>
+{% endblock %}
